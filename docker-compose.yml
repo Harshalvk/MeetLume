@@ -1,0 +1,17 @@
+version: "3.4"
+
+services:
+  db:
+    container_name: meetlume-db
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=meetlume_db
+      - POSTGRES_USER=meetlume_user
+      - POSTGRES_PASSWORD=meetlume
+    volumes:
+      - meetlume_data:/var/lib/postgresql/data
+
+volumes:
+  meetlume_data:
