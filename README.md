@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MeetLume (or Metta) 🪩
 
-## Getting Started
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Next.js](https://img.shields.io/badge/Next.js-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai)](https://openai.com/)
+[![Shadcn/UI](https://img.shields.io/badge/Shadcn/UI-black?style=flat&logo=shadcnui)](https://ui.shadcn.com/)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**MeetLume is an AI-powered meeting assistant that records, transcribes, summarizes, and helps you search through your conversations.** Never miss a detail from your meetings again. Get actionable insights and share them with your team in seconds.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Live Transcription:** Get real-time, accurate transcripts of your Google Meet.
+- **AI-Powered Summaries:** Automatically generate concise summaries, action items, and key takeaways after every meeting.
+- **Smart Search:** Find any conversation, topic, or decision instantly by searching through your entire meeting history.
+- **Organized Workspace:** Create channels and folders to organize meetings by project, team, or client.
+- **Seamless Integration:** Works with your favorite calendar and team apps. (Calendars, trello, etc.)
+- **Collaboration:** Share meeting notes and highlights with teammates, even if they couldn't attend.
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Acknowledgments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Inspired by [Fireflies.ai](https://fireflies.ai/).
+- Transcription powered by [OpenAI Whisper](https://openai.com/research/whisper).
+- Summarization powered by [OpenAI GPT](https://openai.com/product/gpt-4).
+- UI components built using [Shadcn/UI](https://ui.shadcn.com/).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ❓ FAQ
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Q: Is my data private?**
+A: Yes. We take data privacy very seriously. Audio and transcripts are encrypted at rest and in transit. We do not use your data to train our AI models.
+
+**Q: Which video conferencing platforms do you support?**
+A: Currently, we support Zoom, Google Meet, and Microsoft Teams via their respective SDKs and APIs.
+
+**Q: How accurate is the transcription?**
+A: We use OpenAI's Whisper model, which is state-of-the-art and offers very high accuracy, especially in clear audio conditions.
+
+**Q: Can I use this for free?**
+A: This self-hosted version is free to use and modify under the MIT license. Note that using AI features like Whisper and GPT will incur costs via your own OpenAI API key.
+
+---
+
+<p align="center">
+  <i>Built with ❤️ by Harshal</i>
+</p>
