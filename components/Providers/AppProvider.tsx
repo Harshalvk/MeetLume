@@ -1,6 +1,7 @@
 import React from "react";
 import ThemeProvider from "./ThemeProvider";
 import { UsageProvider } from "@/app/contexts/UsageContext";
+import ConditionalLayout from "../ConditionalLayout";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,7 +12,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         enableSystem
         disableTransitionOnChange
       >
-        <UsageProvider>{children}</UsageProvider>
+        <UsageProvider>
+          <ConditionalLayout>{children}</ConditionalLayout>
+        </UsageProvider>
       </ThemeProvider>
     </>
   );
