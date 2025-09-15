@@ -3,10 +3,15 @@
 import React, { useState } from "react";
 import { ThemeSwitcher } from "./ui/theme-switcher";
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ className }: { className?: string }) => {
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
   return (
-    <ThemeSwitcher defaultValue="system" onChange={setTheme} value={theme} />
+    <ThemeSwitcher
+      className={className}
+      defaultValue="system"
+      onChange={setTheme}
+      value={theme}
+    />
   );
 };
 
