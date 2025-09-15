@@ -6,7 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "tsc": "tsc --noEmit",
+    "format": "prettier \"**/*.{ts,tsx,js,json}\" --ignore-path .gitignore",
+    "format:check": "bun format --check",
+    "format:write": "bun format --write",
+    "validate": "bun format:write && bun lint && bun tsc",
+    "prepare": "husky"
   },
   "dependencies": {
     "@prisma/client": "^6.16.1",
@@ -15,6 +21,7 @@
     "better-auth": "^1.3.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "husky": "^9.1.7",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.12",
     "next": "15.5.3",
@@ -31,6 +38,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
+    "prettier": "^3.6.2",
     "prisma": "^6.16.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.8",
