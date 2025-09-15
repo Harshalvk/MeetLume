@@ -2,7 +2,13 @@
 
 import { useSession } from "@/lib/auth-client";
 import { IPlanLimits, PLAN_LIMITS } from "@/lib/types";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import IncrementChatUsageAction from "@/app/actions/user/incrementChatUsage";
 import IncrementMeetingUsageAction from "@/app/actions/user/incrementMeetingUsage";
 
@@ -49,7 +55,7 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
       (limits.meetings === -1 || usage.meetingsThisMonth < limits.meetings)
     : false;
 
-  const fetchUsage = async () => {
+  const fetchUsage = useCallback(async () => {
     if (!session?.user.id) return;
 
     try {
@@ -63,7 +69,7 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [session?.user.id]);
 
   const incrementChatUsage = async () => {
     if (!canChat) return;
@@ -108,12 +114,12 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    if (loading && session?.user.id) {
+    if (session?.user.id) {
       fetchUsage();
-    } else if (loading && !session?.user.id) {
+    } else if (!session?.user.id) {
       setLoading(false);
     }
-  }, [loading, session?.user.id]);
+  }, [fetchUsage, loading, session?.user.id]);
 
   return (
     <UsageContext.Provider
