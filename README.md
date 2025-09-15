@@ -1,4 +1,4 @@
-# MeetLume (or Metta) 🪩
+# MeetLume
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
@@ -6,9 +6,7 @@
 [![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai)](https://openai.com/)
 [![Shadcn/UI](https://img.shields.io/badge/Shadcn/UI-black?style=flat&logo=shadcnui)](https://ui.shadcn.com/)
 
-
 **MeetLume is an AI-powered meeting assistant that records, transcribes, summarizes, and helps you search through your conversations.** Never miss a detail from your meetings again. Get actionable insights and share them with your team in seconds.
-
 
 ## Features
 
