@@ -1,5 +1,6 @@
 import React from "react";
 import ThemeProvider from "./ThemeProvider";
+import { UsageProvider } from "@/app/contexts/UsageContext";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -10,7 +11,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <UsageProvider>{children}</UsageProvider>
       </ThemeProvider>
     </>
   );
