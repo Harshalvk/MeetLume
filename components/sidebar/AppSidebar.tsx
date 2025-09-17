@@ -28,7 +28,9 @@ import { useSession } from "@/lib/auth-client";
 import { usePathname } from "next/navigation";
 import { useUsage } from "@/app/contexts/UsageContext";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import UserCurrentPlan from "./UserCurrentPlan";
+import { Skeleton } from "../ui/skeleton";
+import UpgradeToPremium from "./UpgradeToPremium";
 
 const items: { title: string; url: string; icon: LucideIcon }[] = [
   {
@@ -117,9 +119,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem className="w-full flex items-center gap-2">
+          <SidebarMenuItem className="w-full flex items-center justify-start">
             <SidebarMenuButton>
-              <CircleStop />
+              <div>
+                <CircleStop className="size-5" />
+              </div>
               <Logo />
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -148,94 +152,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        {usage && sidebarOpen && (
-          <div className="rounded-lg bg-sidebar-accent/50 p-3 mb-3 outline">
-            <p className="text-xs font-medium text-sidebar-accent-foreground mb-3">
-              Current Plan: {usage.currentPlan.toUpperCase()}
-            </p>
-            <div className="space-y-2 mb-3">
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-sidebar-accent-foreground/70">
-                  Meetings
-                </span>
-                <span className="text-xs text-sidebar-accent-foreground/70">
-                  {usage.meetingsThisMonth}/
-                  {limits.meetings === -1 ? "∞" : limits.meetings}
-                </span>
-              </div>
-              {limits.meetings !== -1 && (
-                <div className="w-full bg-sidebar-accent/30 rounded-full h-2">
-                  <div
-                    className="dark:bg-white bg-black h-2 rounded-full transition-all duration-500 ease-out"
-                    style={{ width: `${meetingProgress}%` }}
-                  >
-                    {" "}
-                  </div>
-                </div>
-              )}
-              {limits.meetings === -1 && (
-                <div className="text-xs text-sidebar-accent-foreground/50 italic">
-                  Unlimited
-                </div>
-              )}
-            </div>
-            <div className="space-y-2 mb-3">
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-sidebar-accent-foreground/70">
-                  Chat Messages
-                </span>
-                <span className="text-xs text-sidebar-accent-foreground/70">
-                  {usage.chatMessagesToday}/
-                  {limits.chatMessages === -1 ? "∞" : limits.chatMessages}
-                </span>
-              </div>
-              {limits.chatMessages !== -1 && (
-                <div className="w-full bg-sidebar-accent/30 rounded-full h-2">
-                  <div
-                    className="dark:bg-white bg-black h-2 rounded-full transition-all duration-500 ease-out"
-                    style={{ width: `${chatProgress}%` }}
-                  >
-                    {" "}
-                  </div>
-                </div>
-              )}
-              {limits.chatMessages === -1 && (
-                <div className="text-xs text-sidebar-accent-foreground/50 italic">
-                  Unlimited
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-        {upgradeInfo && sidebarOpen && (
-          <div className="rounded-lg bg-sidebar-accent p-4">
-            <div className="space-y-3">
-              <div className="space-y-1">
-                <p className="text-sm font-medium text-sidebar-accent-foreground">
-                  {upgradeInfo.title}
-                </p>
-                <p className="text-xs text-sidebar-accent-foreground/70">
-                  {upgradeInfo.description}
-                </p>
-              </div>
-              {upgradeInfo.showButton && (
-                <Link href="/pricing">
-                  <Button className="w-full rounded-md px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
-                    {upgradeInfo.title}
-                  </Button>
-                </Link>
-              )}
+        {sidebarOpen ? (
+          usage ? (
+            <UserCurrentPlan
+              usage={usage}
+              limits={limits}
+              chatProgress={chatProgress}
+              meetingProgress={meetingProgress}
+            />
+          ) : (
+            <Skeleton className="w-full h-36 rounded-lg" />
+          )
+        ) : null}
 
-              {!upgradeInfo.showButton && (
-                <div className="text-center py-2">
-                  <span className="text-xs text-sidebar-accent-foreground/60">
-                    🎉 Thank you for your support!
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+        {sidebarOpen ? (
+          upgradeInfo ? (
+            <UpgradeToPremium upgradeInfo={upgradeInfo} />
+          ) : (
+            <Skeleton className="w-full h-36 rounded-lg" />
+          )
+        ) : null}
 
         <SidebarUser
           user={{
