@@ -18,7 +18,7 @@ export async function GET() {
     );
     googleAuthUrl.searchParams.set("client_id", process.env.GOOGLE_CLIENT_ID!);
     googleAuthUrl.searchParams.set(
-      "client_id",
+      "redirect_uri",
       process.env.GOOGLE_REDIRECT_URI!
     );
     googleAuthUrl.searchParams.set(
