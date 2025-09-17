@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "@/lib/auth-client";
-import { IPlanLimits, PLAN_LIMITS } from "@/lib/types";
+import { IPlanLimits, IUsageData, PLAN_LIMITS } from "@/lib/types";
 import React, {
   createContext,
   useCallback,
@@ -11,14 +11,6 @@ import React, {
 } from "react";
 import IncrementChatUsageAction from "@/app/actions/user/incrementChatUsage";
 import IncrementMeetingUsageAction from "@/app/actions/user/incrementMeetingUsage";
-
-interface IUsageData {
-  currentPlan: string;
-  subscriptionStatus: string;
-  meetingsThisMonth: number;
-  chatMessagesToday: number;
-  billingPeriodStart: string | null;
-}
 
 interface IUsageContextType {
   usage: IUsageData | null;

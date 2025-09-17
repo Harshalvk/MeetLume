@@ -10,6 +10,14 @@ export const PLAN_LIMITS: Record<string, IPlanLimits> = {
   premium: { meetings: -1, chatMessages: -1 },
 };
 
+export interface IUsageData {
+  currentPlan: string;
+  subscriptionStatus: string;
+  meetingsThisMonth: number;
+  chatMessagesToday: number;
+  billingPeriodStart: string | null;
+}
+
 export interface ICalendarEvent {
   id: string;
   summary?: string;
