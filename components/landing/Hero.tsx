@@ -8,10 +8,10 @@ const Hero = () => {
       <div className="border w-full h-full rounded-xl bg-primary/2 flex flex-col items-center">
         <div className="w-full h-1/2 flex flex-col items-center justify-center gap-4">
           <h1
-            className={`text-4xl sm:text-5xl md:text-6xl font-semibold ${spectral.className} italic text-center tracking-tight`}
+            className={`text-4xl sm:text-5xl md:text-6xl ${spectral.className} text-center tracking-tight`}
           >
-            Never Miss a Meeting <br className="" /> Moment, insight, or action
-            item.
+            Supercharge your meetings <br className="" /> with intelligent
+            summaries
           </h1>
           <p className="text-sm sm:text-base md:text-lg text-center max-w-3xl text-muted-foreground/95">
             MeetLume is the AI assistant that records, transcribes, and
