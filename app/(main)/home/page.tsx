@@ -30,10 +30,6 @@ const Home = () => {
     router.push(`/meeting/${meetingId}`);
   };
 
-  if (!userId) {
-    router.push("/login");
-  }
-
   return (
     <div className="h-full">
       <div className="flex gap-6 p-6">
