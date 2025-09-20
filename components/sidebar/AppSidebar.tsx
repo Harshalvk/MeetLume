@@ -64,7 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession();
   const pathName = usePathname();
   const { usage, limits } = useUsage();
-  const { open: sidebarOpen } = useSidebar();
+  const { open: sidebarOpen, isMobile } = useSidebar();
 
   const meetingProgress =
     usage && limits.meetings !== -1
@@ -152,7 +152,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        {sidebarOpen ? (
+        {sidebarOpen || isMobile ? (
           usage ? (
             <UserCurrentPlan
               usage={usage}
@@ -165,7 +165,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           )
         ) : null}
 
-        {sidebarOpen ? (
+        {sidebarOpen || isMobile ? (
           upgradeInfo ? (
             <UpgradeToPremium upgradeInfo={upgradeInfo} />
           ) : (
