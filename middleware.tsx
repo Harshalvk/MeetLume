@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 type Session = typeof auth.$Infer.Session;
 
 const authRoutes = ["/login"];
-const protectuedRoutes = ["/dashboard"];
+const protectuedRoutes = ["/home", "/integrations"];
 
 export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
 
   if (session) {
     if (isAuthRoute) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return NextResponse.redirect(new URL("/home", request.url));
     }
     if (isProtectedRoute) {
       return NextResponse.next();
@@ -42,5 +42,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/login"], // Apply middleware to specific routes
+  matcher: ["/home", "/integrations", "/login"], // Apply middleware to specific routes
 };
