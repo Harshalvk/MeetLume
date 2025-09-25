@@ -30,6 +30,14 @@ const Home = () => {
     router.push(`/meeting/${meetingId}`);
   };
 
+  if (!userId) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <div className="h-full">
       <div className="flex gap-6 p-6">
