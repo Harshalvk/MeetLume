@@ -29,8 +29,8 @@ export interface ICalendarEvent {
   location?: string;
   hangoutLink?: string;
   conferenceData?: unknown;
-  botScheduled: boolean;
-  meetingId: string;
+  botScheduled?: boolean;
+  meetingId?: string;
 }
 
 export interface IPastMeeting {
