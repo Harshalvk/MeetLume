@@ -6,7 +6,7 @@ import { useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 
 export interface Integration {
-  platform: "google-calender" | "trello" | "jira" | "asana" | "slack";
+  platform: "google-calendar" | "trello" | "jira" | "asana" | "slack";
   name: string;
   description: string;
   connected: boolean;
@@ -50,7 +50,7 @@ export function useIntegrations() {
       logo: "/icons/asana.svg",
     },
     {
-      platform: "google-calender",
+      platform: "google-calendar",
       name: "Google Calendar",
       description: "Auto-Sync meetings",
       connected: false,
@@ -84,7 +84,7 @@ export function useIntegrations() {
 
       setIntegrations((prev) =>
         prev.map((integration) => {
-          if (integration.platform === "google-calender") {
+          if (integration.platform === "google-calendar") {
             return {
               ...integration,
               connected: calendarStatus.connected || false,
@@ -114,7 +114,7 @@ export function useIntegrations() {
   const fetchSetupData = async (platform: string) => {
     try {
       const integrationSetupDataResponse = await fetch(
-        "/api/v1/integrations/asana/auth"
+        `/api/v1/integrations/${platform}/setup`
       );
       const integrationSetupData = await integrationSetupDataResponse.json();
       setSetupData(integrationSetupData);
@@ -123,7 +123,7 @@ export function useIntegrations() {
     }
   };
 
-  const handleConnect = (platform: "slack" | "google-calendar") => {
+  const handleConnect = (platform: string) => {
     if (platform === "slack") {
       window.location.href = "/api/slack/install?return=integrations";
     } else if (platform === "google-calendar") {
