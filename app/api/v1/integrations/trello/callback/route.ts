@@ -7,7 +7,7 @@ export async function GET() {
   if (!userSession) {
     return NextResponse.redirect(
       new URL(
-        "/api/v1/integrations?error=auth_failed",
+        "/integrations?error=auth_failed",
         process.env.NEXT_PUBLIC_APP_URL
       )
     );
