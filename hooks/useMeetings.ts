@@ -149,7 +149,7 @@ export function useMeetings() {
         return parsed.map((name) => String(name).trim());
       }
 
-      return [String(parsed.trim())];
+      return [String(parsed).trim()];
     } catch {
       const attendeesString = String(attendees);
       return attendeesString
