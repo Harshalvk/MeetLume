@@ -26,10 +26,11 @@ export async function GET(req: NextRequest) {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: new URLSearchParams({
-        grant_type: "autorization_code",
+        grant_type: "authorization_code",
         client_id: process.env.ASANA_CLIENT_ID!,
         client_secret: process.env.ASANA_CLIENT_SECRET!,
         redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/v1/integrations/asana/callback`,
+        code,
       }),
     });
 
