@@ -82,7 +82,7 @@ export async function GetIntegrationStatusAction() {
         platform: "slack",
         name: "Slack",
         logo: "/icons/slack.svg",
-        connected: true,
+        connected: false,
       });
     }
 
