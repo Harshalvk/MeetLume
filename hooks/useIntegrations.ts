@@ -140,7 +140,7 @@ export function useIntegrations() {
           method: "POST",
         });
       } else {
-        await fetch(`/api/integrations/${platform}/disconnect`, {
+        await fetch(`/api/v1/integrations/${platform}/disconnect`, {
           method: "POST",
         });
       }
