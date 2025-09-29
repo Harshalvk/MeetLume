@@ -7,10 +7,13 @@ export class AsanaAPI {
     const response = await fetch(`${this.baseUrl}/workspaces`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: "application/json",
       },
     });
 
     if (!response.ok) {
+      const errorText = await response.json();
+      console.error("Failed to fetch asana workspaces: ", errorText);
       throw new Error("Failed to fetch asana workspaces");
     }
 
