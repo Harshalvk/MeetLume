@@ -25,14 +25,14 @@ export async function GET(req: NextRequest) {
       {
         method: "POST",
         headers: {
-          "Content-Type": "applicaton/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          grand_type: "authorization_code",
+          grant_type: "authorization_code",
           client_id: process.env.JIRA_CLIENT_ID!,
           client_secret: process.env.JIRA_CLIENT_SECRET!,
+          code,
           redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/v1/integrations/jira/callback`,
-          code: code,
         }),
       }
     );
@@ -49,8 +49,8 @@ export async function GET(req: NextRequest) {
       "https://api.atlassian.com/oauth/token/accessible-resources",
       {
         headers: {
-          Authorization: `Bearar ${tokenData.access_token}`,
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenData.access_token}`,
+          Accept: "application/json",
         },
       }
     );

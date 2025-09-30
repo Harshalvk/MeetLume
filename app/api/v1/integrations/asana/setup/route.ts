@@ -57,7 +57,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching asana projects: ", error);
     return NextResponse.json(
-      { error: "Failed to fetch asana projects: " },
+      { error: "Failed to fetch asana projects" },
       { status: 500 }
     );
   }
