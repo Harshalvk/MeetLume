@@ -45,7 +45,7 @@ export async function GET() {
     );
 
     return NextResponse.json({
-      projects: projects.value || [],
+      projects: projects.values || [],
     });
   } catch (error) {
     console.error("Error fetching jira projects: ", error);
@@ -59,7 +59,17 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const userSession = await GetUserSession();
 
-  const { projectId, projectName, projectKey, createNew } = await req.json();
+  const {
+    projectId,
+    projectName,
+    projectKey,
+    createNew,
+  }: {
+    projectId: string;
+    projectName: string;
+    projectKey: string;
+    createNew: string;
+  } = await req.json();
 
   if (!userSession) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -83,14 +93,14 @@ export async function POST(req: NextRequest) {
 
     const jira = new JiraAPI();
 
-    let finalProjectId: string = projectId;
-    let finalProjectName: string = projectName;
-    let finalProjectKey: string = projectKey;
+    let finalProjectId = projectId;
+    let finalProjectName = projectName;
+    let finalProjectKey = projectKey;
 
     if (createNew && projectName) {
       try {
         const suggestedKey = projectName
-          .toUpperCaes()
+          .toUpperCase()
           .replace(/[^A-Z0-9]/g, "")
           .substring(0, 10);
         const key = projectKey || suggestedKey;
