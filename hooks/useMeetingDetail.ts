@@ -62,7 +62,7 @@ export function useMeetingDetail() {
   const [loading, setLoading] = useState(true);
 
   const chat = useChatCore({
-    apiEndpoint: "/api/rag/chat-meeting",
+    apiEndpoint: "/api/v1/rag/chat-meeting",
     getRequestBody: (input) => ({
       meetingId,
       quesion: input,
@@ -96,7 +96,7 @@ export function useMeetingDetail() {
   useEffect(() => {
     const fetchMeeting = async () => {
       try {
-        const response = await fetch(`/api/meetings/${meetingId}`);
+        const response = await fetch(`/api/v1/meetings/${meetingId}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -131,7 +131,7 @@ export function useMeetingDetail() {
   useEffect(() => {
     const processTranscript = async () => {
       try {
-        const meetingResponse = await fetch(`/api/meetings/${meetingId}`);
+        const meetingResponse = await fetch(`/api/v1/meetings/${meetingId}`);
 
         if (!meetingResponse.ok) {
           return;
@@ -159,7 +159,7 @@ export function useMeetingDetail() {
               .join("\n");
           }
 
-          await fetch("/api/rag/process", {
+          await fetch("/api/v1/rag/process", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
