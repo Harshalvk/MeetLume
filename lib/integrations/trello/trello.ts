@@ -1,5 +1,26 @@
 import { IActionItemData } from "../types";
 
+interface ITrelloGetBoardResponse {
+  id: string;
+  name: string;
+  closed: boolean;
+  pos: number;
+  softLimit: string;
+  idBoard: string;
+  subscribed: boolean;
+  limits: Record<
+    string,
+    Record<
+      string,
+      {
+        status: string;
+        disableAt: number;
+        warnAt: number;
+      }
+    >
+  >;
+}
+
 export class TrelloAPI {
   private apiKey = process.env.TRELLO_API_KEY!;
   private baseUrl = "https://api.trello.com/1";
@@ -38,7 +59,7 @@ export class TrelloAPI {
       throw new Error("Failed to fetch lists");
     }
 
-    return response.json();
+    return response.json() as Promise<ITrelloGetBoardResponse[]>;
   }
 
   async createCard(token: string, listId: string, data: IActionItemData) {
