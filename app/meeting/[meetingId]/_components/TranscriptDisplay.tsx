@@ -1,16 +1,6 @@
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ITranscriptSegment } from "@/lib/types";
 import React from "react";
-
-interface ITranscriptWord {
-  word: string;
-  start: number;
-  end: number;
-}
-
-interface ITranscriptSegment {
-  words: ITranscriptWord[];
-  offset: number;
-  speaker: string;
-}
 
 interface TranscriptDisplayProps {
   transcript: ITranscriptSegment[];
@@ -31,7 +21,7 @@ const TranscriptDisplay = ({ transcript }: TranscriptDisplayProps) => {
   };
 
   const getSegmentText = (segment: ITranscriptSegment) => {
-    return segment.words.map((word) => word.word).join("");
+    return segment.words.map((word) => word.word).join(" ");
   };
 
   if (!transcript || transcript.length === 0) {
@@ -48,26 +38,26 @@ const TranscriptDisplay = ({ transcript }: TranscriptDisplayProps) => {
         Meeting transcript
       </h3>
 
-      <div className="space-y-4 max-h-96 overflow-y-auto">
+      <ScrollArea className="space-y-4 h-96">
         {transcript.map((segment, index) => (
           <div
             key={index}
-            className="pb-4 border-b border-border last:border-b-0"
+            className="py-4 border-b border-border last:border-b-0 text-wrap w-fit"
           >
             <div className="flex items-center gap-3 mb-2">
               <span className="font-medium text-foreground">
                 {segment.speaker}
               </span>
-              <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+              <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md">
                 {getSpeakerSegmentTime(segment)}
               </span>
             </div>
-            <p className="text-muted-foregroun leading-relaxed pl-4">
+            <p className="text-muted-foreground leading-relaxed pl-4">
               {getSegmentText(segment)}
             </p>
           </div>
         ))}
-      </div>
+      </ScrollArea>
     </div>
   );
 };
