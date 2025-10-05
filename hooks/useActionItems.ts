@@ -43,7 +43,7 @@ export function useActionItems() {
           .filter((d) => d.connected)
           .filter((d) => d.platform !== "slack")
           .map((integration) => ({
-            logo: `/${integration.platform}.png`,
+            logo: `/icons/${integration.platform}.svg`,
             name: integration.name,
             platform: integration.platform,
             connected: integration.connected,

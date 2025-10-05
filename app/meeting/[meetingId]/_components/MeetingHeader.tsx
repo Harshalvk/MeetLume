@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
-import { Check, Eye, Share2, Trash2 } from "lucide-react";
+import { Check, Eye, Loader, Share2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -104,8 +104,8 @@ const MeetingHeader = ({
 
       {isLoading ? (
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-muted-foreground">
-            Loading...
+          <div className="animate-spin rounded-full h-4 w-4 ">
+            <Loader className="h-4 w-4" />
           </div>
         </div>
       ) : isOwner ? (
@@ -116,7 +116,11 @@ const MeetingHeader = ({
             variant={"outline"}
             className="border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer disabled:cursor-not-allowed"
           >
-            <img src={"/slack.png"} alt="Slack" className="w-4 h-4 mr-2" />
+            <img
+              src={"/icons/slack.svg"}
+              alt="Slack"
+              className="w-4 h-4 mr-2"
+            />
             {isPosting ? "Posting..." : "Post to Slack"}
           </Button>
 
