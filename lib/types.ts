@@ -45,3 +45,15 @@ export interface IPastMeeting {
   recordingUrl?: string | null;
   speakers?: unknown;
 }
+
+export interface ITranscriptWord {
+  word: string;
+  start: number;
+  end: number;
+}
+
+export interface ITranscriptSegment {
+  words: ITranscriptWord[];
+  offset: number;
+  speaker: string;
+}

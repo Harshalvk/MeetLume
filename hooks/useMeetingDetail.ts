@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useChatCore } from "./useChatCore";
 import { IActionItem } from "./useActionItems";
+import { ITranscriptSegment } from "@/lib/types";
 
 export interface MeetingData {
   id: string;
@@ -12,7 +13,7 @@ export interface MeetingData {
   description?: string;
   startTime: string;
   endTime: string;
-  transcript?: unknown;
+  transcript?: ITranscriptSegment[];
   summary?: string;
   actionItems?: Array<{
     id: number;
@@ -189,7 +190,7 @@ export function useMeetingDetail() {
     setLocalActionItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const addActionItem = async (text: string) => {
+  const addActionItem = async () => {
     if (!isOwner) {
       return;
     }
