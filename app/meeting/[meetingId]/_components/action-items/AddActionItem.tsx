@@ -38,11 +38,7 @@ const AddActionItemInput = ({
           autoFocus
         />
 
-        <Button
-          onClick={onAddItem}
-          disabled={!newItemText.trim()}
-          size={"sm"}
-        >
+        <Button onClick={onAddItem} disabled={!newItemText.trim()} size={"sm"}>
           Add
         </Button>
 
