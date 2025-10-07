@@ -78,7 +78,7 @@ const CustomAudioPlayer = ({
 
   return (
     <div
-      className={`fixed bottom-0 bg-card border-t border-border p-5 ${!isOwner ? "left-0 right-0" : ""}`}
+      className={`bg-card border-t border-border p-5 ${!isOwner ? "left-0 right-0" : ""}`}
       style={
         isOwner ? { left: "var(--sidebar-width, 16rem)", right: "24rem" } : {}
       }
