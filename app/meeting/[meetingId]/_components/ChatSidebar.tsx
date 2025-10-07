@@ -3,6 +3,7 @@
 import { useUsage } from "@/app/contexts/UsageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send } from "lucide-react";
 
 interface IMessage {
@@ -39,22 +40,22 @@ const ChatSidebar = ({
   ];
 
   return (
-    <div className="w-96 border-l border-border bg-card flex flex-col">
-      <div className="p-4 border-b border-border">
+    <div className="w-96 hidden border-l border-border bg-card md:flex flex-col relative">
+      <div className="p-4 border-b border-border absolute top-0 bg-card w-full z-10">
         <h3 className="font-semibold text-foreground">Meeting Assistant</h3>
         <p className="text-sm text-muted-foreground">
           Ask me anything about this meeting
         </p>
       </div>
 
-      <div className="flex-1 p-4 overflow-auto space-y-4">
+      <ScrollArea className="px-2 mt-20 h-[670px]">
         {messages.map((message) => (
           <div
             key={message.id}
             className={`flex ${message.isBot ? "justify-start" : "justify-end"}`}
           >
             <div
-              className={`max-u-[80%] rounded-lg p-3 ${message.isBot ? "bg-muted text-foreground" : "bg-primary text-primary-foreground"}`}
+              className={`max-w-[80%] mt-3 rounded-lg p-3 ${message.isBot ? "bg-muted text-foreground" : "bg-primary text-primary-foreground"}`}
             >
               <p className="text-sm">{message.content}</p>
             </div>
@@ -94,32 +95,34 @@ const ChatSidebar = ({
             </a>
           </div>
         )}
+      </ScrollArea>
 
-        <div className="p-4 border-t border-border">
-          <div className="flex gap-2">
-            <Input
-              type="text"
-              value={chatInput}
-              onChange={(e) => onInputChange(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  onSendMessage();
-                }
-              }}
-              placeholder={
-                canChat ? "Ask about this meeting..." : "Daily limit reached"
+      <div className="absolute bottom-17 w-full bg-gradient-to-t from-card to-transparent h-10" />
+
+      <div className="p-4 absolute bottom-0 w-full bg-card">
+        <div className="flex gap-2">
+          <Input
+            type="text"
+            value={chatInput}
+            onChange={(e) => onInputChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                onSendMessage();
               }
-            />
+            }}
+            placeholder={
+              canChat ? "Ask about this meeting..." : "Daily limit reached"
+            }
+          />
 
-            <Button
-              type="button"
-              onClick={onSendMessage}
-              disabled={!chatInput.trim() || !canChat}
-            >
-              <Send className="w-4 h-4" />
-            </Button>
-          </div>
+          <Button
+            type="button"
+            onClick={onSendMessage}
+            disabled={!chatInput.trim() || !canChat}
+          >
+            <Send className="w-4 h-4" />
+          </Button>
         </div>
       </div>
     </div>
