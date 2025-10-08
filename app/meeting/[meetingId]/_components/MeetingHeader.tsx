@@ -99,7 +99,7 @@ const MeetingHeader = ({
     });
 
   return (
-    <div className="bg-card border-b border-border px-6 py-3.5 flex justify-between items-center">
+    <div className="bg-card border-b border-border px-6 py-3.5 flex justify-between items-center sticky top-0 z-30">
       <h1 className="text-xl font-semibold text-foreground">{title}</h1>
 
       {isLoading ? (
