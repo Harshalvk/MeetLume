@@ -43,12 +43,12 @@ const MeetingInfo = ({ meetingData }: MeetingInfoProps) => {
           </div>
           {meetingData.userName}
         </span>
-        <span className="flex items-center gap-1">
-          <CalendarDays />
+        <span className="flex items-center justify-center gap-1">
+          <CalendarDays className="h-4 w-4" />
           {meetingData.date}
         </span>
         <span className="flex items-center gap-1">
-          <Clock />
+          <Clock className="h-4 w-4" />
           {meetingData.time}
         </span>
       </div>
