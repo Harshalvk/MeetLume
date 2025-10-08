@@ -1,5 +1,5 @@
 import { prisma } from "../prisma";
-import { chatWithAI, createEmbedding, createManyEmbedding } from "./openai";
+import { chatWithAI, createEmbedding, createManyEmbedding } from "./ai";
 import { saveManyVectors, searchVector } from "./pinecone";
 import { chunkTranscript, extractSpeaker } from "./text-chunker";
 
@@ -14,6 +14,11 @@ export async function processTranscript(
   const texts = chunks.map((chunk) => chunk.content);
 
   const embeddings = await createManyEmbedding(texts);
+
+  if (!embeddings) {
+    console.error("Failed to generate embeddings for transcript:", meetingId);
+    return { success: false, error: "Embedding generation failed" };
+  }
 
   const dbChunks = chunks.map((chunk) => ({
     meetingId,
@@ -51,6 +56,11 @@ export async function chatWithMeeting(
 ) {
   const questionEmbedding = await createEmbedding(question);
 
+  if (!questionEmbedding) {
+    console.error("Failed to generate embedding for question: ", question);
+    return { success: false, answer: "", metadata: [] };
+  }
+
   const results = await searchVector(
     questionEmbedding,
     {
@@ -81,7 +91,9 @@ export async function chatWithMeeting(
     Here's what was discussed:
     ${context}
     
-    Answer the user's question based only on the meeting content above. If the answer isn't in the meeting, say no`;
+    Answer the user's question based only on the meeting content above. If the answer isn't in the meeting, say NO.
+    
+    DO NOT return reponse in markdown format give it in plan text format`;
 
   const answer = await chatWithAI(systemPrompt, question);
 
@@ -98,6 +110,11 @@ export async function chatWithMeeting(
 
 export async function chatWithAllMeetings(userId: string, question: string) {
   const questionEmbedding = await createEmbedding(question);
+
+  if (!questionEmbedding) {
+    console.error("Failed to generate embedding for question: ", question);
+    return { success: false, answer: "", metadata: [] };
+  }
 
   const results = await searchVector(questionEmbedding, { userId }, 5);
 

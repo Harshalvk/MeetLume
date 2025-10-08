@@ -9,7 +9,7 @@ const index = pinecone.index(process.env.PINECONE_INDEX_NAME!);
 export async function saveManyVectors(
   vectors: Array<{
     id: string;
-    embedding: number[];
+    embedding: number[] | undefined;
     metadata: Record<string, string | number | boolean>;
   }>
 ) {
