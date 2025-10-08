@@ -66,7 +66,7 @@ export function useMeetingDetail() {
     apiEndpoint: "/api/v1/rag/chat-meeting",
     getRequestBody: (input) => ({
       meetingId,
-      quesion: input,
+      question: input,
     }),
   });
 
