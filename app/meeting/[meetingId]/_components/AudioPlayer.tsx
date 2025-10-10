@@ -61,6 +61,19 @@ const CustomAudioPlayer = ({
     const rect = e.currentTarget.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const width = rect.width;
+    const newTime = (clickX / width) * duration;
+
+    audio.currentTime = newTime;
+  };
+
+  const handleVolumeChange = (e: React.MouseEvent<HTMLDivElement>) => {
+    const audio = playerRef.current?.audio.current;
+
+    if (!audio || !duration) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
     const newVolume = Math.max(0, Math.min(1, clickX / width));
 
     audio.volume = newVolume;
@@ -159,7 +172,7 @@ const CustomAudioPlayer = ({
               <div
                 className="bg-primary h-2 rounded-full transition-all duration-300"
                 style={{
-                  width: `${duration ? (currentTime / duration) * 100 : 0}`,
+                  width: `${duration ? (currentTime / duration) * 100 : 0}%`,
                 }}
               />
             </div>
@@ -171,10 +184,13 @@ const CustomAudioPlayer = ({
 
           <div className="flex items-center gap-2">
             <Volume2 className="h-4 w-4 text-muted-foreground" />
-            <div className="w-20 bg-muted rounded-full h-2 cursor-pointer">
+            <div
+              className="w-20 bg-muted rounded-full h-2 cursor-pointer"
+              onClick={handleVolumeChange}
+            >
               <div
                 className="bg-primary h-2 rounded-full"
-                style={{ width: `${volume * 100}` }}
+                style={{ width: `${volume * 100}%` }}
               />
             </div>
           </div>
