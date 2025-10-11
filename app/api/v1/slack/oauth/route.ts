@@ -96,7 +96,7 @@ export async function GET(req: NextRequest) {
       ? state.split("return=")[1]
       : null;
 
-    if (returnTo === "integration") {
+    if (returnTo === "integrations") {
       return NextResponse.redirect(`${baseUrl}/integrations?setup=slack`);
     } else {
       return NextResponse.redirect(`${baseUrl}/?slack=installed`);
