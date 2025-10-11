@@ -125,7 +125,7 @@ export function useIntegrations() {
 
   const handleConnect = (platform: string) => {
     if (platform === "slack") {
-      window.location.href = "/api/slack/install?return=integrations";
+      window.location.href = "/api/v1/slack/install?return=integrations";
     } else if (platform === "google-calendar") {
       window.location.href = "/api/v1/google/direct-connect";
     } else {
