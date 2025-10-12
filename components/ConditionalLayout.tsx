@@ -18,7 +18,7 @@ const ConditionalLayout = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider defaultOpen={false}>
       <div className="flex h-screen w-full">
         <AppSidebar />
         <main className="flex-1 overflow-auto">{children}</main>
