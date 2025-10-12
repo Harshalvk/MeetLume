@@ -2,7 +2,7 @@
 
 import { useMeetings } from "@/hooks/useMeetings";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import PastMeetings from "./_components/PastMeetings";
 import UpcomingMeetings from "./_components/UpcomingMeetings";
 
@@ -30,6 +30,10 @@ const Home = () => {
     router.push(`/meeting/${meetingId}`);
   };
 
+  useEffect(() => {
+    fetchPastMeetings();
+  }, []);
+
   if (!userId) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -43,9 +47,7 @@ const Home = () => {
       <div className="flex gap-6 p-6">
         <div className="flex-1">
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-foreground">
-              Past Meetings
-            </h2>
+            <h2 className="text-2xl text-foreground">Past Meetings</h2>
           </div>
           <PastMeetings
             pastMeetings={pastMeetings}
