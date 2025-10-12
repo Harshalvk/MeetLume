@@ -4,6 +4,7 @@ import { useIntegrations } from "@/hooks/useIntegrations";
 import React from "react";
 import SetupForm, { ISetupFormData } from "./_components/SetupForm";
 import IntegrationCard from "./_components/IntegrationCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const IntegrationsPage = () => {
   const {
@@ -13,9 +14,6 @@ const IntegrationsPage = () => {
     setupData,
     setSetupData,
     integrations,
-    setupLoading,
-    setSetupLoading,
-    fetchIntegration,
     fetchSetupData,
     handleConnect,
     handleDisconnect,
@@ -24,23 +22,24 @@ const IntegrationsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background p-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center">Loading Integrations...</div>
+      <div className="h-full bg-background p-6">
+        <div className="max-w-4xl mx-auto ">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[1, 2, 3, 4].map((item) => (
+              <Skeleton key={item} className="h-48" />
+            ))}
+          </div>
+          <Skeleton className="h-40 w-full mt-5" />
         </div>
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bg-background p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-foreground mb-2">
-            Integrations
-          </h1>
-
-          <p className="text-muted-foreground">
+    <section className="h-full bg-background">
+      <div className="max-w-4xl mx-auto p-4 space-y-3">
+        <div className="">
+          <p className="text-muted-foreground text-md">
             Connect your favourite tools to automatically add action item from
             meetings
           </p>
@@ -68,7 +67,7 @@ const IntegrationsPage = () => {
           </div>
         )}
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {integrations.map((integration) => (
             <IntegrationCard
               key={integration.platform}
@@ -83,9 +82,8 @@ const IntegrationsPage = () => {
           ))}
         </div>
 
-        <div className="mt-8 bg-card rounded-lg p-6 border border-border">
+        <div className="bg-card rounded-lg p-6 border border-border">
           <h3 className="font-semibold text-foreground mb-2">How it works?</h3>
-
           <ol className="list-decimal text-sm text-muted-foreground space-y-2 pl-4">
             <li>Connect your preffered tools above</li>
             <li>Choose where to send action items during setup</li>
