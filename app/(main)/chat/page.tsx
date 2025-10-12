@@ -19,7 +19,7 @@ const ChatWithAllMeetingsPage = () => {
   } = useChatAll();
 
   return (
-    <div className="h-screen bg-background flex flex-col items-center">
+    <div className="h-full bg-background flex flex-col items-center">
       <div className="flex-1 flex flex-col max-w-4xl w-full">
         <div className="flex-1 overflow-y-auto p-6">
           {messages.length === 0 && showSuggestions ? (
