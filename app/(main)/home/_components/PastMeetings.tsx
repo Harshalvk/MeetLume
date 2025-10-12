@@ -76,9 +76,7 @@ const PastMeetings = ({
         >
           <div className="flex justify-between items-start mb-3">
             <div className="flex items-center gap-3 flex-1">
-              <h3 className="font-semibold text-lg text-foreground">
-                {meeting.title}
-              </h3>
+              <h3 className="text-lg text-foreground">{meeting.title}</h3>
               {typeof meeting.attendees === "object" && meeting.attendees && (
                 <AttendeeAvatars
                   attendees={meeting.attendees}
