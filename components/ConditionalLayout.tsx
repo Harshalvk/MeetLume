@@ -3,7 +3,6 @@
 import { useSession } from "@/lib/auth-client";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
-import { SidebarProvider } from "./ui/sidebar";
 import { AppSidebar } from "./sidebar/AppSidebar";
 
 const ConditionalLayout = ({ children }: { children: ReactNode }) => {
@@ -18,12 +17,10 @@ const ConditionalLayout = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <SidebarProvider defaultOpen={false}>
-      <div className="flex h-screen w-full">
-        <AppSidebar />
-        <main className="flex-1 overflow-auto">{children}</main>
-      </div>
-    </SidebarProvider>
+    <div className="flex h-screen w-full">
+      <AppSidebar />
+      <main className="flex-1 overflow-auto">{children}</main>
+    </div>
   );
 };
 
