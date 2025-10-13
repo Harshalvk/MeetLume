@@ -28,9 +28,8 @@ import { useSession } from "@/lib/auth-client";
 import { usePathname } from "next/navigation";
 import { useUsage } from "@/app/contexts/UsageContext";
 import Link from "next/link";
-import UserCurrentPlan from "./UserCurrentPlan";
 import { Skeleton } from "../ui/skeleton";
-import UpgradeToPremium from "./UpgradeToPremium";
+import UserPlanAndUpgradeToPremium from "./UserPlanAndUpgradeToPremium";
 
 const items: { title: string; url: string; icon: LucideIcon }[] = [
   {
@@ -153,23 +152,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         {sidebarOpen || isMobile ? (
-          usage ? (
-            <UserCurrentPlan
+          usage && upgradeInfo ? (
+            <UserPlanAndUpgradeToPremium
               usage={usage}
               limits={limits}
               chatProgress={chatProgress}
               meetingProgress={meetingProgress}
+              upgradeInfo={upgradeInfo}
             />
           ) : (
-            <Skeleton className="w-full h-36 rounded-lg" />
-          )
-        ) : null}
-
-        {sidebarOpen || isMobile ? (
-          upgradeInfo ? (
-            <UpgradeToPremium upgradeInfo={upgradeInfo} />
-          ) : (
-            <Skeleton className="w-full h-36 rounded-lg" />
+            <Skeleton />
           )
         ) : null}
 
