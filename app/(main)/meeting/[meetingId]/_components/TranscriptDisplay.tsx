@@ -33,12 +33,12 @@ const TranscriptDisplay = ({ transcript }: TranscriptDisplayProps) => {
   }
 
   return (
-    <div className="bg-card rounded-lg p-6 border border-border">
+    <div className="h-full flex flex-col overflow-y-auto bg-card rounded-lg p-6 border border-border">
       <h3 className="text-lg font-semibold text-foreground mb-4">
         Meeting transcript
       </h3>
 
-      <ScrollArea className="space-y-4 h-96">
+      <div className="space-y-4 max-h-96 overflow-y-auto">
         {transcript.map((segment, index) => (
           <div
             key={index}
@@ -57,7 +57,7 @@ const TranscriptDisplay = ({ transcript }: TranscriptDisplayProps) => {
             </p>
           </div>
         ))}
-      </ScrollArea>
+      </div>
     </div>
   );
 };
