@@ -28,6 +28,7 @@ const MeetingInfo = ({ meetingData }: MeetingInfoProps) => {
         <span className="flex item-center gap-2">
           <div className="w-5 h-5 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-border">
             {session?.user.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={session.user.image}
                 alt={`${meetingData.userName}'s profile`}
