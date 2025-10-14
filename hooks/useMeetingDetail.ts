@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useChatCore } from "./useChatCore";
 import { IActionItem } from "./useActionItems";
 import { ITranscriptSegment } from "@/lib/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export interface MeetingData {
   id: string;
@@ -94,93 +95,104 @@ export function useMeetingDetail() {
     chat.handleInputChange(value);
   };
 
-  useEffect(() => {
-    const fetchMeeting = async () => {
-      try {
-        const response = await fetch(`/api/v1/meetings/${meetingId}`);
+  const { data: meetingDataQuery } = useQuery({
+    queryKey: ["fetch-action-items", meetingId],
+    queryFn: async () => {
+      const response = await fetch(`/api/v1/meetings/${meetingId}`);
 
-        if (response.ok) {
-          const data = await response.json();
-
-          setMeetingData(data);
-
-          if (session) {
-            const ownerStatus = session.user.id === data.userId;
-
-            setIsOwner(ownerStatus);
-            setUserChecked(true);
-          }
-
-          if (data.actionItems && data.actionItems.length > 0) {
-            setLocalActionItems(data.actionItems);
-          } else {
-            setLocalActionItems([]);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching meeting:", error);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error("Failed to fetch action items");
       }
-    };
 
-    if (session) {
-      fetchMeeting();
-    }
-  }, [meetingId, session]);
+      setLoading(false);
+
+      return response.json();
+    },
+    enabled: !!session && !!meetingId,
+    staleTime: 1000 * 60,
+  });
 
   useEffect(() => {
-    const processTranscript = async () => {
-      try {
-        const meetingResponse = await fetch(`/api/v1/meetings/${meetingId}`);
-
-        if (!meetingResponse.ok) {
-          return;
-        }
-
-        const meeting: IMeeting = await meetingResponse.json();
-
-        if (
-          meeting.transcript &&
-          !meeting.ragProcessed &&
-          session?.user.id == meeting.userId
-        ) {
-          let transcriptText = "";
-
-          if (typeof meeting.transcript === "string") {
-            transcriptText = meeting.transcript;
-          } else if (Array.isArray(meeting.transcript)) {
-            transcriptText = meeting.transcript
-              .map(
-                (segment) =>
-                  `${segment.speaker}: ${segment.words
-                    .map((w) => w.word)
-                    .join(" ")}`
-              )
-              .join("\n");
-          }
-
-          await fetch("/api/v1/rag/process", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              meetingId,
-              transcript: transcriptText,
-              meetingtitle: meeting.title,
-            }),
-          });
-        }
-      } catch (error) {
-        console.error("Error checking RAG processing: ", error);
-      }
-    };
-
-    if (session) {
-      processTranscript();
+    if (meetingDataQuery && session) {
+      const ownerStatus = session.user.id === meetingDataQuery.userId;
+      setIsOwner(ownerStatus);
+      setUserChecked(true);
     }
-  }, [meetingId, session]);
+
+    if (meetingDataQuery?.actionItems?.length > 0) {
+      setLocalActionItems(meetingDataQuery.actionItems);
+    } else {
+      setLocalActionItems([]);
+    }
+
+    setMeetingData(meetingDataQuery);
+  }, [meetingData, meetingDataQuery, meetingId, session]);
+
+  const { data: meetingQuery } = useQuery({
+    queryKey: ["fetch-meeting", meetingId],
+    queryFn: async () => {
+      const response = await fetch(`/api/v1/meetings/${meetingId}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch meeting details");
+      }
+
+      const data: IMeeting = await response.json();
+
+      return data;
+    },
+  });
+
+  const { mutate: processTranscriptionMutate } = useMutation({
+    mutationFn: async ({
+      meetingId,
+      transcript,
+      meetingTitle,
+    }: {
+      meetingId: string;
+      transcript: string;
+      meetingTitle: string;
+    }) => {
+      await fetch("/api/v1/rag/process", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          meetingId,
+          transcript,
+          meetingTitle,
+        }),
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (
+      meetingQuery?.transcript &&
+      meetingQuery.ragProcessed &&
+      session?.user.id === meetingQuery.userId
+    ) {
+      let transcriptText = "";
+
+      if (typeof meetingQuery.transcript === "string") {
+        transcriptText = meetingQuery.transcript;
+      } else if (Array.isArray(meetingQuery.transcript)) {
+        transcriptText = meetingQuery.transcript
+          .map(
+            (segment) =>
+              `${segment.speaker}: ${segment.words.map((w) => w.word).join(" ")}`
+          )
+          .join("\n");
+      }
+
+      processTranscriptionMutate({
+        meetingId,
+        transcript: transcriptText,
+        meetingTitle: meetingQuery.title,
+      });
+    }
+  }, [meetingId, session, meetingQuery]);
 
   const deleteActionItem = async (id: number) => {
     if (!isOwner) {
