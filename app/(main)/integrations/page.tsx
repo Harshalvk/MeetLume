@@ -5,6 +5,14 @@ import React from "react";
 import SetupForm, { ISetupFormData } from "./_components/SetupForm";
 import IntegrationCard from "./_components/IntegrationCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const IntegrationsPage = () => {
   const {
@@ -23,8 +31,8 @@ const IntegrationsPage = () => {
   if (loading) {
     return (
       <div className="h-full bg-background p-6">
-        <div className="max-w-4xl mx-auto ">
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="max-w-6xl mx-auto ">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4].map((item) => (
               <Skeleton key={item} className="h-48" />
             ))}
@@ -37,12 +45,30 @@ const IntegrationsPage = () => {
 
   return (
     <section className="h-full bg-background">
-      <div className="max-w-4xl mx-auto p-4 space-y-3">
+      <div className="max-w-6xl mx-auto p-4 space-y-3">
         <div className="">
           <p className="text-muted-foreground text-md">
             Connect your favourite tools to automatically add action item from
             meetings
           </p>
+        </div>
+
+        <div className="w-full flex justify-between">
+          <Input placeholder="Search integration" className="w-fit" />
+          <Select defaultValue="all">
+            <SelectTrigger>
+              <SelectValue placeholder="All" />
+            </SelectTrigger>
+            <SelectContent align="end">
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="communication">Communication</SelectItem>
+              <SelectItem value="task-management">Task Management</SelectItem>
+              <SelectItem value="project-management">
+                Project Management
+              </SelectItem>
+              <SelectItem value="scheduling">Scheduling</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         {setupMode && (
@@ -67,7 +93,7 @@ const IntegrationsPage = () => {
           </div>
         )}
 
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {integrations.map((integration) => (
             <IntegrationCard
               key={integration.platform}
