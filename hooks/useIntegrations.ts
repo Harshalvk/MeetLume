@@ -14,6 +14,7 @@ export interface Integration {
   projectName?: string | null | undefined;
   channelName?: string;
   logo: string;
+  type: string;
 }
 
 export function useIntegrations() {
@@ -27,6 +28,7 @@ export function useIntegrations() {
       connected: false,
       channelName: undefined,
       logo: "/icons/slack.svg",
+      type: "Communication",
     },
     {
       platform: "trello",
@@ -34,6 +36,7 @@ export function useIntegrations() {
       description: "Add action items to your Trello boards",
       connected: false,
       logo: "/icons/trello.svg",
+      type: "Task Management",
     },
     {
       platform: "jira",
@@ -41,6 +44,7 @@ export function useIntegrations() {
       description: "Create tickets for development tasks",
       connected: false,
       logo: "/icons/jira.svg",
+      type: "Project Management",
     },
     {
       platform: "asana",
@@ -48,6 +52,7 @@ export function useIntegrations() {
       description: "Sync tasks with your team projects",
       connected: false,
       logo: "/icons/asana.svg",
+      type: "Task Management",
     },
     {
       platform: "google-calendar",
@@ -55,6 +60,7 @@ export function useIntegrations() {
       description: "Auto-Sync meetings",
       connected: false,
       logo: "/icons/google-calendar.svg",
+      type: "Scheduling",
     },
   ]);
 
