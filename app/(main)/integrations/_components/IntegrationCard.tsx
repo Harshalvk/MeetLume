@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Integration } from "@/hooks/useIntegrations";
 import { Check, ExternalLink, Settings } from "lucide-react";
 import Image from "next/image";
@@ -18,34 +19,40 @@ const IntegrationCard = ({
   onSetup,
 }: IIntegrationCardProps) => {
   return (
-    <div>
-      <div className="bg-card rounded-lg p-6 border border-border">
-        <div className="flex items-start justify-between mb-4">
+    <div className="h-full">
+      <div className="bg-card rounded-lg p-6 flex flex-col justify-between h-full gap-4 border border-border">
+        <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 relative flex-shrink-0">
-              <Image
-                src={integration.logo}
-                alt={`${integration.name} logo`}
-                fill
-                className="object-contain rounded"
-              />
+            <div className="w-12 h-12 relative flex-shrink-0 border p-2 rounded-md">
+              <div className="relative w-full h-full">
+                <Image
+                  src={integration.logo}
+                  alt={`${integration.name} logo`}
+                  fill
+                  className="object-contain rounded"
+                />
+              </div>
             </div>
             <div>
               <h3 className="font-semibold text-foreground">
                 {integration.name}
               </h3>
-              {integration.connected && (
-                <span className="text-xs bg-green-500/20 text-green-400 px-2 pyy-1 rounded-full">
-                  Connected
-                </span>
-              )}
+              <p className="text-xs text-muted-foreground">
+                {integration.type}
+              </p>
             </div>
           </div>
           {integration.connected && (
-            <Check className="h-5 w-5 text-green-500" />
+            <div className="flex items-center bg-green-500/20 rounded-full px-2">
+              <Check className="h-3 w-3 text-green-600" />
+              <span className="text-xs text-green-600 px-1 py-1 rounded-full">
+                Connected
+              </span>
+            </div>
           )}
         </div>
-        <p className="text-sm text-muted-foreground mb-4">
+        <Separator />
+        <p className="text-sm text-muted-foreground">
           {integration.description}
         </p>
         {integration.connected &&
@@ -53,7 +60,7 @@ const IntegrationCard = ({
           (integration.boardName ||
             integration.projectName ||
             integration.channelName) && (
-            <div className="mb-4 p-3 bg-muted-/50 rounded-lg bg-muted/30">
+            <div className="mb-4 p-3 bg-muted-/50 rounded-lg bg-muted/50">
               <div className="text-xs text-muted-foreground mb-1">
                 Destination:
               </div>
