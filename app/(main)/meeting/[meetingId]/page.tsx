@@ -5,7 +5,6 @@ import React from "react";
 import MeetingHeader from "./_components/MeetingHeader";
 import { useSearchParams } from "next/navigation";
 import MeetingInfo from "./_components/MeetingInfo";
-import { Button } from "@/components/ui/button";
 import ActionItems from "./_components/action-items/ActionItems";
 import TranscriptDisplay from "./_components/TranscriptDisplay";
 import ChatSidebar from "./_components/ChatSidebar";
@@ -18,11 +17,8 @@ const MeetingPage = () => {
     isOwner,
     userChecked,
     chatInput,
-    setChatInput,
     messages,
     showSuggestions,
-    activeTab,
-    setActiveTab,
     meetingData,
     loading,
     handleSendMessage,
@@ -35,7 +31,7 @@ const MeetingPage = () => {
   } = useMeetingDetail();
 
   return (
-    <div className="h-full bg-background flex flex-col">
+    <div className="h-full w-full bg-background flex flex-col">
       <MeetingHeader
         title={meetingData?.title || "Meeting"}
         meetingId={meetingId}
@@ -56,7 +52,7 @@ const MeetingPage = () => {
           >
             <MeetingInfo meetingData={meetingInfoData} />
             <div className="mb-8">
-              <div className="flex border-b border-border">
+              <div className="flex">
                 <Tabs defaultValue="summary">
                   <TabsList>
                     <TabsTrigger value="summary">Summary</TabsTrigger>
@@ -139,27 +135,23 @@ const MeetingPage = () => {
                       )}
                     </div>
                   </TabsContent>
-                  <TabsContent value="transcript">
-                    <div>
-                      {loading ? (
-                        <div className="bg-card border border-border rounded-lg p-6 text-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4" />
-                          <p className="text-muted-foreground">
-                            Loading meeting data...
-                          </p>
-                        </div>
-                      ) : meetingData?.transcript ? (
-                        <TranscriptDisplay
-                          transcript={meetingData.transcript}
-                        />
-                      ) : (
-                        <div className="bg-card rounded-lg p-6 border border-border text-center">
-                          <p className="text-muted-foreground">
-                            No transcript available
-                          </p>
-                        </div>
-                      )}
-                    </div>
+                  <TabsContent value="transcript" className="h-full w-full">
+                    {loading ? (
+                      <div className="bg-card border border-border rounded-lg p-6 text-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4" />
+                        <p className="text-muted-foreground">
+                          Loading meeting data...
+                        </p>
+                      </div>
+                    ) : meetingData?.transcript ? (
+                      <TranscriptDisplay transcript={meetingData.transcript} />
+                    ) : (
+                      <div className="bg-card rounded-lg p-6 border border-border text-center">
+                        <p className="text-muted-foreground">
+                          No transcript available
+                        </p>
+                      </div>
+                    )}
                   </TabsContent>
                 </Tabs>
               </div>
