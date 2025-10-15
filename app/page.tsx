@@ -5,7 +5,7 @@ import React from "react";
 
 const Home = () => {
   return (
-    <section className="max-w-7xl h-screen mx-auto flex flex-col p-2 gap-2">
+    <section className="w-7xl h-screen mx-auto flex flex-col p-2 gap-2">
       <Navbar />
       <Hero />
       <Footer />
