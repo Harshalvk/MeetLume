@@ -2,9 +2,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { useMutation } from "@tanstack/react-query";
-import { Check, Eye, Loader, Share2, Trash2 } from "lucide-react";
+import { Check, Eye, Loader, Menu, Share2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -27,6 +42,8 @@ const MeetingHeader = ({
   isLoading = false,
 }: IMeetingHeaderProps) => {
   const [copied, setCopied] = useState(false);
+  const [confirmDeleteMeetingDialogOpen, setConfirmDeleteMeetingDialogOpen] =
+    useState(false);
 
   const router = useRouter();
 
@@ -101,70 +118,135 @@ const MeetingHeader = ({
     });
 
   return (
-    <div className="bg-card border-b border-border px-3 py-1.5 flex justify-between items-center sticky top-0 z-30">
-      <div className="flex gap-1 items-center">
-        <SidebarTrigger />
-
-        <h1 className="border-l pl-2 text-xl font-semibold text-foreground max-w-fit truncate">
-          {title}
-        </h1>
-      </div>
-
-      {isLoading ? (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <div className="animate-spin rounded-full h-4 w-4 ">
-            <Loader className="h-4 w-4" />
+    <div>
+      <div className="bg-sidebar border-b border-border px-3 py-1.5 flex justify-between items-center sticky top-0 z-30">
+        <div className="flex gap-1 items-center">
+          <SidebarTrigger />
+          <h1 className="border-l pl-2 text-xl font-semibold text-foreground max-w-fit truncate">
+            {title}
+          </h1>
+        </div>
+        {isLoading ? (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="animate-spin rounded-full h-4 w-4 ">
+              <Loader className="h-4 w-4" />
+            </div>
           </div>
-        </div>
-      ) : isOwner ? (
-        <div className="flex gap-3">
-          <Button
-            onClick={() => handlePostToSlack()}
-            disabled={isPosting || !meetingId}
-            variant={"outline"}
-            className="border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer disabled:cursor-not-allowed"
-          >
-            <img
-              src={"/icons/slack.svg"}
-              alt="Slack"
-              className="w-4 h-4 mr-2"
-            />
-            {isPosting ? "Posting..." : "Post to Slack"}
-          </Button>
-
-          <Button
-            onClick={handleShare}
-            variant={"outline"}
-            className="flex items-center gap-2 px-4 bg-muted rounded-lg hover:bg-muted/800 transition-colors text-foreground text-sm cursor-pointer"
-          >
-            {copied ? (
-              <>
-                <Check className="h-4 w-4" />
-                Copied
-              </>
-            ) : (
-              <>
-                <Share2 className="h-4 w-4" />
-                Share
-              </>
-            )}
-          </Button>
-
-          <Button
-            onClick={() => handleDeleteMeeting()}
-            disabled={isDeletingMeeting}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-white hover:bg-descructive/90 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-          >
-            <Trash2 className="h-4 w-4" />
-            {isDeletingMeeting ? "Deleting Meeting..." : "Delete Meeting"}
-          </Button>
-        </div>
-      ) : (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Eye className="w-4 h-4" />
-          Viewing shared meeting
-        </div>
-      )}
+        ) : isOwner ? (
+          <div>
+            <div className="hidden lg:flex gap-3">
+              <Button
+                onClick={() => handlePostToSlack()}
+                disabled={isPosting || !meetingId}
+                variant={"outline"}
+                className="border cursor-pointer disabled:cursor-not-allowed"
+              >
+                <img
+                  src={"/icons/slack.svg"}
+                  alt="Slack"
+                  className="w-4 h-4 mr-1"
+                />
+                {isPosting ? "Posting..." : "Post to Slack"}
+              </Button>
+              <Button
+                onClick={handleShare}
+                variant={"outline"}
+                className="flex items-center gap-2 px-4 bg-muted rounded-lg hover:bg-muted/800 transition-colors text-foreground text-sm cursor-pointer"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Share2 className="h-4 w-4" />
+                    Share
+                  </>
+                )}
+              </Button>
+              <Button
+                onClick={() => setConfirmDeleteMeetingDialogOpen(true)}
+                disabled={isDeletingMeeting}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-white hover:bg-descructive/90 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <Trash2 className="h-4 w-4" />
+                {isDeletingMeeting ? "Deleting Meeting..." : "Delete Meeting"}
+              </Button>
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="lg:hidden">
+                <Menu className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem
+                  disabled={isPosting || !meetingId}
+                  onClick={() => handlePostToSlack()}
+                >
+                  <img
+                    src={"/icons/slack.svg"}
+                    alt="Slack"
+                    className="w-4 h-4 mr-1"
+                  />
+                  {isPosting ? "Posting..." : "Post to Slack"}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleShare}>
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4" />
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <Share2 className="h-4 w-4" />
+                      Share
+                    </>
+                  )}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => handleDeleteMeeting()}
+                  disabled={isDeletingMeeting}
+                  className="text-destructive flex items-center justify-center"
+                >
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                  {isDeletingMeeting ? "Deleting Meeting..." : "Delete Meeting"}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Eye className="w-4 h-4" />
+            Viewing shared meeting
+          </div>
+        )}
+      </div>
+      <Dialog
+        open={confirmDeleteMeetingDialogOpen}
+        onOpenChange={setConfirmDeleteMeetingDialogOpen}
+      >
+        <DialogContent className="bg-sidebar">
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your
+              meeting.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={() => handleDeleteMeeting()}>Confirm</Button>
+            <Button
+              type="button"
+              variant={"secondary"}
+              onClick={() => setConfirmDeleteMeetingDialogOpen(false)}
+            >
+              Cancle
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
