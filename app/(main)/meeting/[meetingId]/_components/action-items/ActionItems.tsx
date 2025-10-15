@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { IActionItem, useActionItems } from "@/hooks/useActionItems";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import ActionItemsList from "./ActionItemsList";
 import AddActionItemInput from "./AddActionItem";
@@ -28,6 +28,8 @@ const ActionItems = ({
     newItemText,
     setNewItemText,
   } = useActionItems();
+
+  const queryClient = useQueryClient();
 
   const { mutate: addToIntegrationMutate } = useMutation({
     mutationFn: async ({
@@ -112,6 +114,13 @@ const ActionItems = ({
           onClick: () => {},
         },
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["fetch-action-items", meetingId],
+      });
+
+      setShowAddInput(false);
+      setNewItemText("");
     },
     onError: (error) => {
       onAddItem(newItemText);
