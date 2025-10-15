@@ -1,4 +1,3 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { ITranscriptSegment } from "@/lib/types";
 import React from "react";
 
@@ -33,12 +32,12 @@ const TranscriptDisplay = ({ transcript }: TranscriptDisplayProps) => {
   }
 
   return (
-    <div className="h-full flex flex-col overflow-y-auto bg-card rounded-lg p-6 border border-border">
+    <div className="flex flex-col overflow-y-auto bg-card rounded-lg p-6 border border-border">
       <h3 className="text-lg font-semibold text-foreground mb-4">
         Meeting transcript
       </h3>
 
-      <div className="space-y-4 max-h-96 overflow-y-auto">
+      <div className="space-y-4 max-h-[445px] overflow-y-auto">
         {transcript.map((segment, index) => (
           <div
             key={index}
