@@ -3,7 +3,6 @@
 import { useUsage } from "@/app/contexts/UsageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send } from "lucide-react";
 
 interface IMessage {
@@ -40,7 +39,7 @@ const ChatSidebar = ({
   ];
 
   return (
-    <div className="w-96 hidden border-l border-border bg-card md:flex flex-col relative">
+    <div className="w-1/3 h-full hidden border-l border-border lg:flex flex-col relative">
       <div className="p-4 border-b border-border absolute top-0 bg-card w-full z-10">
         <h3 className="font-semibold text-foreground">Meeting Assistant</h3>
         <p className="text-sm text-muted-foreground">
@@ -48,7 +47,7 @@ const ChatSidebar = ({
         </p>
       </div>
 
-      <ScrollArea className="px-2 mt-20 h-[670px]">
+      <div className="px-2 mt-20 h-full overflow-y-auto pb-24">
         {messages.map((message) => (
           <div
             key={message.id}
@@ -95,12 +94,10 @@ const ChatSidebar = ({
             </a>
           </div>
         )}
-      </ScrollArea>
+      </div>
 
-      <div className="absolute bottom-17 w-full bg-gradient-to-t from-card to-transparent h-10" />
-
-      <div className="p-4 absolute bottom-0 w-full bg-card">
-        <div className="flex gap-2">
+      <div className="w-full flex absolute bottom-0 right-0 px-3 py-2 mr-2">
+        <div className="flex gap-2 bg-card p-4 rounded-lg flex-1">
           <Input
             type="text"
             value={chatInput}
