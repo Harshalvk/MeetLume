@@ -14,7 +14,7 @@ export function useMeetings() {
   const [upcomingEvents, setUpcomingEvents] = useState<ICalendarEvent[]>([]);
   const [pastMeetings, setPastMeetings] = useState<IPastMeeting[]>([]);
   const [loading, setLoading] = useState(false);
-  const [pastLoading, setPastLoading] = useState(false);
+  const [pastLoading, setPastLoading] = useState(true);
   const [connected, setConnected] = useState(false);
   const [error, setError] = useState<string>("");
   const [botToggles, setBotToggles] = useState<{ [key: string]: boolean }>({});
