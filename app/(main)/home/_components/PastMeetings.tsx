@@ -67,7 +67,7 @@ const PastMeetings = ({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="grid lg:grid-cols-2 gap-3">
       {pastMeetings.map((meeting) => (
         <div
           key={meeting.id}
@@ -85,7 +85,7 @@ const PastMeetings = ({
                 />
               )}
             </div>
-            <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full">
+            <span className="text-xs bg-green-500/20 text-green-700 font-medium px-2 py-1 rounded-full">
               Completed
             </span>
           </div>
@@ -107,7 +107,8 @@ const PastMeetings = ({
 
           <div className="flex gap-2 mt-4" onClick={(e) => e.stopPropagation()}>
             <Button
-              className="flex items-center gap-1 px-3 py-1 bg-primary text-primary-foreground text-xs rounded hover:bg-primary/90 transition-colors h-6 cursor-pointer"
+              className="flex items-center gap-1 text-xs cursor-pointer"
+              size={"sm"}
               onClick={() => onMeetingClick(meeting.id)}
             >
               <ExternalLink className="h-3 w-3" />

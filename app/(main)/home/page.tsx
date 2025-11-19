@@ -34,17 +34,9 @@ const Home = () => {
     fetchPastMeetings();
   }, []);
 
-  if (!userId) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        Loading...
-      </div>
-    );
-  }
-
   return (
     <div className="h-full">
-      <div className="flex gap-6 p-6">
+      <div className="flex flex-col gap-6 p-6">
         <div className="flex-1">
           <div className="mb-6">
             <h2 className="text-2xl text-foreground">Past Meetings</h2>
