@@ -7,7 +7,7 @@ type Session = typeof auth.$Infer.Session;
 const authRoutes = ["/login"];
 const protectuedRoutes = ["/home", "/integrations"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const isAuthRoute = authRoutes.includes(pathName);
   const isProtectedRoute = protectuedRoutes.includes(pathName);
