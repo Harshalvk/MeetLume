@@ -6,6 +6,7 @@ import { UsageProvider } from "@/app/contexts/UsageContext";
 import { Toaster } from "sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SidebarProvider } from "../ui/sidebar";
+import { ChatSidebarProvider } from "@/app/contexts/ChatSidebar";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
@@ -21,7 +22,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
             disableTransitionOnChange
           >
             <Toaster />
-            <UsageProvider>{children}</UsageProvider>
+            <UsageProvider>
+              <ChatSidebarProvider>{children}</ChatSidebarProvider>
+            </UsageProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </SidebarProvider>
