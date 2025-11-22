@@ -12,6 +12,10 @@ export const useMediaQuery = () => {
 
   useEffect(() => {
     const checkDevice = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
       if (window.matchMedia("(max-width: 640px)").matches) {
         setDevice("mobile");
       } else if (
