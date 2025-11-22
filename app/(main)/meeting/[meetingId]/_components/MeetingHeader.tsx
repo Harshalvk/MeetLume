@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+
 import { useMutation } from "@tanstack/react-query";
 import { Check, Eye, Loader, Menu, Share2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -122,7 +123,7 @@ const MeetingHeader = ({
       <div className="bg-sidebar border-b border-border px-3 py-1.5 flex justify-between items-center sticky top-0 z-30">
         <div className="flex gap-1 items-center">
           <SidebarTrigger />
-          <h1 className="border-l pl-2 text-xl font-semibold text-foreground max-w-fit truncate">
+          <h1 className="border-l pl-2 md:text-xl font-semibold text-foreground max-w-fit truncate">
             {title}
           </h1>
         </div>
