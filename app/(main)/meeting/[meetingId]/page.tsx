@@ -10,9 +10,7 @@ import TranscriptDisplay from "./_components/TranscriptDisplay";
 import ChatSidebar from "./_components/ChatSidebar";
 import CustomAudioPlayer from "./_components/AudioPlayer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useChatSidebar } from "@/app/contexts/ChatSidebar";
-import { Button } from "@/components/ui/button";
-import { PanelRightClose, PanelRightOpen } from "lucide-react";
+import ChatSidebarTrigger from "@/components/ChatSidebarTrigger";
 
 const MeetingPage = () => {
   const {
@@ -32,8 +30,6 @@ const MeetingPage = () => {
     displayActionItems,
     meetingInfoData,
   } = useMeetingDetail();
-
-  const { chatSidebarOpen, setChatSidebarOpen } = useChatSidebar();
 
   return (
     <div className="h-full w-full bg-background flex flex-col">
@@ -57,12 +53,7 @@ const MeetingPage = () => {
           >
             <div className="w-full flex justify-between">
               <MeetingInfo meetingData={meetingInfoData} />
-              <Button
-                onClick={() => setChatSidebarOpen(!chatSidebarOpen)}
-                variant={"ghost"}
-              >
-                {chatSidebarOpen ? <PanelRightOpen /> : <PanelRightClose />}
-              </Button>
+              <ChatSidebarTrigger />
             </div>
             <div className="mb-8">
               <div className="flex">
