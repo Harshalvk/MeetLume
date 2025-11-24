@@ -1,11 +1,9 @@
-import { spectral } from "@/lib/fonts";
+import { instrumentSerif } from "@/lib/fonts";
 import React from "react";
 
 const Logo = () => {
   return (
-    <h1
-      className={`font-semibold tracking-tighter text-xl sm:text-2xl ${spectral.className}`}
-    >
+    <h1 className={`text-xl sm:text-2xl ${instrumentSerif.className}`}>
       MeetLume
     </h1>
   );
