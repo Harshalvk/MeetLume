@@ -237,7 +237,12 @@ const MeetingHeader = ({
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button onClick={() => handleDeleteMeeting()}>Confirm</Button>
+            <Button
+              variant={"destructive"}
+              onClick={() => handleDeleteMeeting()}
+            >
+              Confirm
+            </Button>
             <Button
               type="button"
               variant={"secondary"}
