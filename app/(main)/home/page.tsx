@@ -8,7 +8,6 @@ import UpcomingMeetings from "./_components/UpcomingMeetings";
 
 const Home = () => {
   const {
-    userId,
     upcomingEvents,
     pastMeetings,
     loading,

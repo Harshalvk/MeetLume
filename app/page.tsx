@@ -236,11 +236,11 @@ const Home = () => {
             onClick={() => {
               router.push("/home");
             }}
-            className="p-6 bg-white/90 text-black hover:bg-white/80"
+            className="p-6 bg-white/90 text-black hover:bg-white/80 rounded-xl rounded-br-md"
           >
             Get Started
           </Button>
-          <Button className="p-6 bg-black/70 hover:bg-black/60">
+          <Button variant="secondary" className="p-6 rounded-xl rounded-bl-md">
             How it works?
           </Button>
         </motion.div>
