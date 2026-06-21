@@ -1,9 +1,7 @@
-version: "3.4"
-
 services:
   db:
     container_name: meetlume-db
-    image: postgres
+    image: postgres:17
     ports:
       - 5432:5432
     environment:
