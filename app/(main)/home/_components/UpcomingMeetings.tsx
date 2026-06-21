@@ -28,7 +28,6 @@ function UpcomingMeetings({
   onToggleBot,
   onConnectCalendar,
 }: UpcomingMeetingsProps) {
-  console.log(upcomingEvents);
   return (
     <div>
       <div className="flex justify-between items-center mb-6">

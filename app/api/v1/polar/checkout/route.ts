@@ -52,7 +52,6 @@ export async function POST(req: NextRequest) {
     }
 
     const checkoutSession = await polar.checkouts.create({
-      customerId: polarCustomerId,
       products: [productId],
       successUrl: `${process.env.NEXT_PUBLIC_APP_URL}/home?success=true`,
       returnUrl: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
@@ -60,8 +59,6 @@ export async function POST(req: NextRequest) {
         userId: dbUser.id,
       },
     });
-
-    console.log("checkout url:::", checkoutSession.url);
 
     return NextResponse.json({ checkoutUrl: checkoutSession.url });
   } catch (error) {

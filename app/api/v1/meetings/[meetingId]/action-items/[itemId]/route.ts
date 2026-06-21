@@ -1,7 +1,7 @@
 import GetUserSession from "@/app/actions/user/getUserSession";
 import { IActionItem } from "@/hooks/useActionItems";
 import { prisma } from "@/lib/prisma";
-import { InputJsonObject } from "@prisma/client/runtime/library";
+import { InputJsonObject } from "@/prisma/generated/internal/prismaNamespace";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
