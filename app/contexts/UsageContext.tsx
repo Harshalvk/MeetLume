@@ -31,7 +31,7 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const limits = usage
-    ? PLAN_LIMITS[usage.currentPlan] || PLAN_LIMITS.free || PLAN_LIMITS.free
+    ? PLAN_LIMITS[usage.currentPlan] || PLAN_LIMITS.free
     : PLAN_LIMITS.free;
 
   const canChat = usage
