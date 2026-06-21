@@ -1,8 +1,8 @@
 import React from "react";
 
 interface IAttendeeAvatarsProps {
-  attendees: unknown;
-  getAttendeeList: (attendees: unknown) => string[];
+  attendees: { name: string; image: string };
+  getAttendeeList: (attendees: { name: string; image: string }) => string[];
   getInitials: (name: string) => string;
 }
 
@@ -12,7 +12,8 @@ const AttendeeAvatars = ({
   getInitials,
 }: IAttendeeAvatarsProps) => {
   const attendeeList = getAttendeeList(attendees);
-
+  console.log("attendeee::", attendees);
+  console.log("attendeesList::;", attendeeList);
   return (
     <div className="flex -space-x-2">
       {attendeeList.slice(0, 4).map((attendee, index) => (

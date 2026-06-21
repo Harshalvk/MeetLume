@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { IPastMeeting } from "@/lib/types";
 import { Clock, ExternalLink, Video } from "lucide-react";
-import React from "react";
 import AttendeeAvatars from "./AttendeeAvatars";
 import { format } from "date-fns";
 
@@ -9,7 +8,7 @@ interface IPastMeetingProps {
   pastMeetings: IPastMeeting[];
   pastLoading: boolean;
   onMeetingClick: (id: string) => void;
-  getAttendeeList: (attendees: unknown) => string[];
+  getAttendeeList: (attendees: { name: string; image: string }) => string[];
   getInitials: (name: string) => string;
 }
 

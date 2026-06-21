@@ -40,7 +40,7 @@ export interface IPastMeeting {
   meetingUrl: string | null;
   startTime: Date;
   endTime: Date;
-  attendees?: unknown;
+  attendees?: { name: string; image: string };
   transcriptReady: boolean;
   recordingUrl?: string | null;
   speakers?: unknown;

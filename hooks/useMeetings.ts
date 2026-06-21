@@ -137,28 +137,37 @@ export function useMeetings() {
     }
   };
 
-  const getAttendeeList = (attendees: unknown): string[] => {
+  type Attendee = { name: string; image: string };
+  type AttendeesInput = Attendee | Attendee[] | string;
+
+  const getAttendeeList = (attendees: AttendeesInput): string[] => {
     if (!attendees) {
       return [];
     }
 
-    try {
-      const parsed = JSON.parse(String(attendees));
-
-      if (Array.isArray(parsed)) {
-        return parsed.map((name) => String(name).trim());
-      }
-
-      return [String(parsed).trim()];
-    } catch {
-      const attendeesString = String(attendees);
-      return attendeesString
-        .split(",")
-        .map((name) => name.trim())
-        .filter(Boolean);
+    if (Array.isArray(attendees)) {
+      return attendees.map((a) => a.name.trim()).filter(Boolean);
     }
-  };
 
+    if (typeof attendees === "string") {
+      try {
+        const parsed: Attendee | Attendee[] = JSON.parse(attendees);
+
+        if (Array.isArray(parsed)) {
+          return parsed.map((a) => a.name.trim()).filter(Boolean);
+        }
+
+        return parsed.name ? [parsed.name.trim()] : [];
+      } catch {
+        return attendees
+          .split(",")
+          .map((name) => name.trim())
+          .filter(Boolean);
+      }
+    }
+
+    return attendees.name ? [attendees.name.trim()] : [];
+  };
   const getInitials = (name: string): string => {
     return name
       .split(" ")
